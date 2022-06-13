@@ -1,4 +1,4 @@
-﻿{
+{
   "RootNamespace": "Chirkut",
   "ServerTypings": {
     "LocalTexts": true
@@ -8,6 +8,25 @@
       "/wwwroot/Scripts/serenity/Serenity.CoreLib*.*"
     ]
   },
+  "Connections": [
+    {
+      "Key": "Main",
+      "Tables": [
+        {
+          "Tablename": "dbo.Month",
+          "Identifier": "Month",
+          "Module": "AdminModule",
+          "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "dbo.MonthlyPeriod",
+          "Identifier": "MonthlyPeriod",
+          "Module": "Occurrence",
+          "PermissionKey": "Administration:General"
+        }
+      ]
+    }
+  ],
   "UpgradeInfo": {
     "InitialType": "Community",
     "InitialVersion": "5.0.51.8"

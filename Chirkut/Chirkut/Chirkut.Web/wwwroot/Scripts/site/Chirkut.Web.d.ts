@@ -5,6 +5,59 @@
 /// <reference types="jqueryui" />
 /// <reference types="serenity.pro.ui" />
 /// <reference types="serenity.pro.extensions" />
+declare namespace Chirkut.AdminModule {
+    class MonthColumns {
+        static columnsKey: string;
+    }
+}
+declare namespace Chirkut.AdminModule {
+    interface MonthForm {
+        Name: Serenity.StringEditor;
+    }
+    class MonthForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Chirkut.AdminModule {
+    interface MonthRow {
+        MonthId?: number;
+        Name?: string;
+    }
+    namespace MonthRow {
+        const idProperty = "MonthId";
+        const nameProperty = "Name";
+        const localTextPrefix = "AdminModule.Month";
+        const lookupKey = "MonthRow";
+        function getLookup(): Q.Lookup<MonthRow>;
+        const deletePermission = "Administration:General";
+        const insertPermission = "Administration:General";
+        const readPermission = "Administration:General";
+        const updatePermission = "Administration:General";
+        const enum Fields {
+            MonthId = "MonthId",
+            Name = "Name"
+        }
+    }
+}
+declare namespace Chirkut.AdminModule {
+    namespace MonthService {
+        const baseUrl = "AdminModule/Month";
+        function Create(request: Serenity.SaveRequest<MonthRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<MonthRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<MonthRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<MonthRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "AdminModule/Month/Create",
+            Update = "AdminModule/Month/Update",
+            Delete = "AdminModule/Month/Delete",
+            Retrieve = "AdminModule/Month/Retrieve",
+            List = "AdminModule/Month/List"
+        }
+    }
+}
 declare namespace Chirkut.Administration {
     class LanguageColumns {
         static columnsKey: string;
@@ -493,6 +546,74 @@ declare namespace Chirkut.Membership {
         Password?: string;
     }
 }
+declare namespace Chirkut.Occurrence {
+    class MonthlyPeriodColumns {
+        static columnsKey: string;
+    }
+}
+declare namespace Chirkut.Occurrence {
+    interface MonthlyPeriodForm {
+        MonthId: Serenity.LookupEditor;
+        StartDate: Serenity.DateEditor;
+        PeriodInterval: Serenity.StringEditor;
+        EndDate: Serenity.DateEditor;
+        LengthInterval: Serenity.StringEditor;
+        Description: Serenity.HtmlNoteContentEditor;
+    }
+    class MonthlyPeriodForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Chirkut.Occurrence {
+    interface MonthlyPeriodRow {
+        MonthlyPeriodId?: number;
+        MonthId?: number;
+        StartDate?: string;
+        EndDate?: string;
+        PeriodInterval?: number;
+        LengthInterval?: number;
+        Description?: string;
+        MonthName?: string;
+    }
+    namespace MonthlyPeriodRow {
+        const idProperty = "MonthlyPeriodId";
+        const nameProperty = "Description";
+        const localTextPrefix = "Occurrence.MonthlyPeriod";
+        const deletePermission = "Occurrence:MonthlyPeriod:Modify";
+        const insertPermission = "Occurrence:MonthlyPeriod:Modify";
+        const readPermission = "Occurrence:MonthlyPeriod:Read";
+        const updatePermission = "Occurrence:MonthlyPeriod:Modify";
+        const enum Fields {
+            MonthlyPeriodId = "MonthlyPeriodId",
+            MonthId = "MonthId",
+            StartDate = "StartDate",
+            EndDate = "EndDate",
+            PeriodInterval = "PeriodInterval",
+            LengthInterval = "LengthInterval",
+            Description = "Description",
+            MonthName = "MonthName"
+        }
+    }
+}
+declare namespace Chirkut.Occurrence {
+    namespace MonthlyPeriodService {
+        const baseUrl = "Occurrence/MonthlyPeriod";
+        function Create(request: Serenity.SaveRequest<MonthlyPeriodRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<MonthlyPeriodRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<MonthlyPeriodRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<MonthlyPeriodRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Occurrence/MonthlyPeriod/Create",
+            Update = "Occurrence/MonthlyPeriod/Update",
+            Delete = "Occurrence/MonthlyPeriod/Delete",
+            Retrieve = "Occurrence/MonthlyPeriod/Retrieve",
+            List = "Occurrence/MonthlyPeriod/List"
+        }
+    }
+}
 declare namespace Chirkut {
     interface ScriptUserDefinition {
         Username?: string;
@@ -504,6 +625,30 @@ declare namespace Chirkut {
     }
 }
 declare namespace Chirkut.Texts {
+}
+declare namespace Chirkut.AdminModule {
+    class MonthDialog extends Serenity.EntityDialog<MonthRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected getDeletePermission(): string;
+        protected getInsertPermission(): string;
+        protected getUpdatePermission(): string;
+        protected form: MonthForm;
+    }
+}
+declare namespace Chirkut.AdminModule {
+    class MonthGrid extends Serenity.EntityGrid<MonthRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof MonthDialog;
+        protected getIdProperty(): string;
+        protected getInsertPermission(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
 }
 declare namespace Chirkut.Administration {
     class LanguageDialog extends Serenity.EntityDialog<LanguageRow, any> {
@@ -743,6 +888,30 @@ declare namespace Chirkut.Membership {
     class SignUpPanel extends Serenity.PropertyPanel<SignUpRequest, any> {
         protected getFormKey(): string;
         private form;
+        constructor(container: JQuery);
+    }
+}
+declare namespace Chirkut.Occurrence {
+    class MonthlyPeriodDialog extends Serenity.EntityDialog<MonthlyPeriodRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected getDeletePermission(): string;
+        protected getInsertPermission(): string;
+        protected getUpdatePermission(): string;
+        protected form: MonthlyPeriodForm;
+    }
+}
+declare namespace Chirkut.Occurrence {
+    class MonthlyPeriodGrid extends Serenity.EntityGrid<MonthlyPeriodRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof MonthlyPeriodDialog;
+        protected getIdProperty(): string;
+        protected getInsertPermission(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
         constructor(container: JQuery);
     }
 }

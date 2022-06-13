@@ -7788,3 +7788,15 @@ section.content > .s-DataGrid {
   padding: 2px 4px;
   border: 1px solid #a3b2d2;
 }
+.s-AdminModule-MonthDialog > .size {
+  width: 650px;
+}
+.s-AdminModule-MonthDialog .caption {
+  width: 150px;
+}
+.s-Occurrence-MonthlyPeriodDialog > .size {
+  width: 650px;
+}
+.s-Occurrence-MonthlyPeriodDialog .caption {
+  width: 150px;
+}

@@ -27,6 +27,15 @@ namespace MVC
 
         }
 
+        public static class AdminModule
+        {
+            public static class Month
+            {
+                public const string MonthIndex = "~/Modules/AdminModule/Month/MonthIndex.cshtml";
+            }
+
+        }
+
         public static class Common
         {
             public static class Dashboard
@@ -71,6 +80,15 @@ namespace MVC
                     public const string AccountSignUp = "~/Modules/Membership/Account/SignUp/AccountSignUp.cshtml";
                     public const string AccountSignUp_AdminLTE = "~/Modules/Membership/Account/SignUp/AccountSignUp.AdminLTE.cshtml";
                 }
+            }
+
+        }
+
+        public static class Occurrence
+        {
+            public static class MonthlyPeriod
+            {
+                public const string MonthlyPeriodIndex = "~/Modules/Occurrence/MonthlyPeriod/MonthlyPeriodIndex.cshtml";
             }
         }
 
