@@ -23,6 +23,7 @@ namespace Chirkut
             //<if:Northwind>
             , "Northwind"
             //</if:Northwind>
+            , "Main"
         };
 
         protected ISqlConnections SqlConnections { get; }
