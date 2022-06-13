@@ -87,9 +87,9 @@ namespace Chirkut.Administration.Repositories
             password = password.TrimToNull();
 
             if (password == null ||
-                password.Length < 5)
+                password.Length < 4)
                 throw new ValidationError("PasswordLength", "Password",
-                    string.Format(Texts.Validation.MinRequiredPasswordLength.ToString(localizer), 5));
+                    string.Format(Texts.Validation.MinRequiredPasswordLength.ToString(localizer), 4));
 
             return password;
         }

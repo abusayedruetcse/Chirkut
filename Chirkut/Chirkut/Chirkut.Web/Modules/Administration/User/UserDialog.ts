@@ -15,8 +15,8 @@
             super();
 
             this.form.Password.addValidationRule(this.uniqueName, e => {
-                if (this.form.Password.value.length < 7)
-                    return "Password must be at least 7 characters!";
+                if (this.form.Password.value.length < 4)
+                    return "Password must be at least 4 characters!";
             });
 
             this.form.PasswordConfirm.addValidationRule(this.uniqueName, e => {
