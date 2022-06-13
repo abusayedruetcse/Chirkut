@@ -2409,38 +2409,6 @@ a.quick-search-field {
     text-align: right;
 }
 
-.s-Demo-Northwind-CategoryDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
-.s-Demo-Northwind-CustomerDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
-.s-Demo-Northwind-OrderDetailDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
-.s-Demo-Northwind-ProductGrid .slick-cell input[type=text] {
-    text-align: right;
-}
-
-.s-Demo-Northwind-RegionDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
-.s-Demo-Northwind-ShipperDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
-.s-Demo-Northwind-SupplierDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
-.s-Demo-Northwind-TerritoryDialog .s-Form .editor.s-DateTimeEditor.time {
-    margin-right: 4px;
-}
-
 .employee-symbol {
     padding: 2px 0 2px 20px;
 }
@@ -2612,12 +2580,6 @@ a.quick-search-field {
 
     .invoice-col {
         float: right;
-    }
-}
-
-@media (max-width:445px) {
-    .s-Demo-Northwind-OrderDetailDialog .s-Form .editor.s-DateTimeEditor.time {
-        margin-right: 4px;
     }
 }
 

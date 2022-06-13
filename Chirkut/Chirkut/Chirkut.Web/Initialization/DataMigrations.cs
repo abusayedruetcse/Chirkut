@@ -20,9 +20,6 @@ namespace Chirkut
     {
         private static readonly string[] databaseKeys = new[] {
             "Default"
-            //<if:Northwind>
-            , "Northwind"
-            //</if:Northwind>
             , "Main"
         };
 
@@ -218,12 +215,7 @@ namespace Chirkut
             var conventionSet = new DefaultConventionSet(defaultSchemaName: null,
                 Path.GetDirectoryName(typeof(DataMigrations).Assembly.Location));
             var migrationNamespace = "Chirkut.Migrations." + databaseKey + "DB";
-            var migrationAssemblies = new[] { typeof(DataMigrations).Assembly };
-            if (databaseKey.Equals("Northwind", StringComparison.OrdinalIgnoreCase))
-            {
-                migrationNamespace = typeof(Serenity.Demo.Northwind.Migrations.MigrationAttribute).Namespace;
-                migrationAssemblies = new[] { typeof(Serenity.Demo.Northwind.Migrations.MigrationAttribute).Assembly };
-            }
+            var migrationAssemblies = new[] { typeof(DataMigrations).Assembly };            
 
             var serviceProvider = new ServiceCollection()
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
