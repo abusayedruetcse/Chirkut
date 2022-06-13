@@ -55,47 +55,11 @@ namespace Chirkut
 
             var serverType = cs.Dialect.ServerType;
             bool isSql = serverType.StartsWith("SqlServer", StringComparison.OrdinalIgnoreCase);
-            bool isPostgres = serverType.StartsWith("Postgres", StringComparison.OrdinalIgnoreCase);
-            bool isMySql = serverType.StartsWith("MySql", StringComparison.OrdinalIgnoreCase);
-            bool isSqlite = serverType.StartsWith("Sqlite", StringComparison.OrdinalIgnoreCase);
-            bool isFirebird = serverType.StartsWith("Firebird", StringComparison.OrdinalIgnoreCase);
-
-            if (isSqlite)
-            {
-                var contentRoot = HostEnvironment.ContentRootPath;
-                Directory.CreateDirectory(Path.Combine(contentRoot, "App_Data"));
-                return;
-            }
-
+            
             var cb = DbProviderFactories.GetFactory(cs.ProviderName).CreateConnectionStringBuilder();
             cb.ConnectionString = cs.ConnectionString;
-
-            if (isFirebird)
-            {
-                if (cb.ConnectionString.IndexOf(@"localhost") < 0 &&
-                    cb.ConnectionString.IndexOf(@"127.0.0.1") < 0)
-                    return;
-
-                var database = cb["Database"] as string;
-                if (string.IsNullOrEmpty(database))
-                    return;
-
-                database = Path.GetFullPath(database);
-                if (File.Exists(database))
-                    return;
-                Directory.CreateDirectory(Path.GetDirectoryName(database));
-
-                using (var fbConnection = SqlConnections.New(cb.ConnectionString, cs.ProviderName, cs.Dialect))
-                {
-                    ((WrappedConnection)fbConnection).ActualConnection.GetType()
-                        .GetMethod("CreateDatabase", new Type[] { typeof(string), typeof(bool) })
-                        .Invoke(null, new object[] { fbConnection.ConnectionString, false });
-                }
-
-                return;
-            }
-
-            if (!isSql && !isPostgres && !isMySql)
+            
+            if (!isSql)
                 return;
 
             string catalogKey = "?";
@@ -108,8 +72,7 @@ namespace Chirkut
                 }
 
             var catalog = cb[catalogKey] as string;
-            cb[catalogKey] = isPostgres ? "postgres" : null;
-
+            
             using (var serverConnection = SqlConnections.New(cb.ConnectionString, cs.ProviderName, cs.Dialect))
             {
                 try
@@ -137,18 +100,7 @@ namespace Chirkut
 
                 string databasesQuery = "SELECT * FROM sys.databases WHERE NAME = @name";
                 string createDatabaseQuery = @"CREATE DATABASE [{0}]";
-
-                if (isPostgres)
-                {
-                    databasesQuery = "select * from postgres.pg_catalog.pg_database where datname = @name";
-                    createDatabaseQuery = "CREATE DATABASE \"{0}\"";
-                }
-                else if (isMySql)
-                {
-                    databasesQuery = "SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = @name";
-                    createDatabaseQuery = "CREATE DATABASE `{0}`";
-                }
-
+                
                 if (serverConnection.Query(databasesQuery, new { name = catalog }).Any())
                     return;
 
@@ -194,24 +146,16 @@ namespace Chirkut
             var cs = SqlConnections.TryGetConnectionString(databaseKey);
             if (cs == null)
                 throw new ArgumentOutOfRangeException(nameof(databaseKey));
-
-
-            string serverType = cs.Dialect.ServerType;
-
-            bool isOracle = serverType.StartsWith("Oracle", StringComparison.OrdinalIgnoreCase);
-            bool isFirebird = serverType.StartsWith("Firebird", StringComparison.OrdinalIgnoreCase);
-
+            
             // safety check to ensure that we are not modifying an arbitrary database.
             // remove these lines if you want Chirkut migrations to run on your DB.
-            if (!isOracle && cs.ConnectionString.IndexOf(typeof(DataMigrations).Namespace +
+            if (cs.ConnectionString.IndexOf(typeof(DataMigrations).Namespace +
                     @"_" + databaseKey + "_v1", StringComparison.OrdinalIgnoreCase) < 0)
             {
                 SkippedMigrations = true;
                 return;
             }
-
-            string databaseType = isOracle ? "OracleManaged" : serverType;
-
+            
             var conventionSet = new DefaultConventionSet(defaultSchemaName: null,
                 Path.GetDirectoryName(typeof(DataMigrations).Assembly.Location));
             var migrationNamespace = "Chirkut.Migrations." + databaseKey + "DB";
@@ -231,18 +175,7 @@ namespace Chirkut
                 })
                 .ConfigureRunner(builder =>
                 {
-                    if (databaseType == OracleDialect.Instance.ServerType)
-                        builder.AddOracleManaged();
-                    else if (databaseType == SqliteDialect.Instance.ServerType)
-                        builder.AddSQLite();
-                    else if (databaseType == FirebirdDialect.Instance.ServerType)
-                        builder.AddFirebird();
-                    else if (databaseType == MySqlDialect.Instance.ServerType)
-                        builder.AddMySql5();
-                    else if (databaseType == PostgresDialect.Instance.ServerType)
-                        builder.AddPostgres();
-                    else
-                        builder.AddSqlServer();
+                    builder.AddSqlServer();
 
                     builder.WithGlobalConnectionString(cs.ConnectionString);
                     builder.WithMigrationsIn(migrationAssemblies);
@@ -251,10 +184,7 @@ namespace Chirkut
 
             var culture = CultureInfo.CurrentCulture;
             try
-            {
-                if (isFirebird)
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
+            {                
                 using var scope = serviceProvider.CreateScope();
                 var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
                 runner.MigrateUp();
@@ -265,8 +195,7 @@ namespace Chirkut
             }
             finally
             {
-                if (isFirebird)
-                    Thread.CurrentThread.CurrentCulture = culture;
+                
             }
         }
     }
