@@ -7794,9 +7794,21 @@ section.content > .s-DataGrid {
 .s-AdminModule-MonthDialog .caption {
   width: 150px;
 }
+.s-AdminModule-BoniAdamDialog > .size {
+  width: 650px;
+}
+.s-AdminModule-BoniAdamDialog .caption {
+  width: 150px;
+}
 .s-Occurrence-MonthlyPeriodDialog > .size {
   width: 650px;
 }
 .s-Occurrence-MonthlyPeriodDialog .caption {
+  width: 150px;
+}
+.s-Fuel-KarzeHasanaDialog > .size {
+  width: 650px;
+}
+.s-Fuel-KarzeHasanaDialog .caption {
   width: 150px;
 }

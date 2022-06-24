@@ -29,6 +29,11 @@ namespace MVC
 
         public static class AdminModule
         {
+            public static class BoniAdam
+            {
+                public const string BoniAdamIndex = "~/Modules/AdminModule/BoniAdam/BoniAdamIndex.cshtml";
+            }
+
             public static class Month
             {
                 public const string MonthIndex = "~/Modules/AdminModule/Month/MonthIndex.cshtml";
@@ -48,6 +53,15 @@ namespace MVC
         {
             public const string AccessDenied = "~/Views/Errors/AccessDenied.cshtml";
             public const string ValidationError = "~/Views/Errors/ValidationError.cshtml";
+        }
+
+        public static class Fuel
+        {
+            public static class KarzeHasana
+            {
+                public const string KarzeHasanaIndex = "~/Modules/Fuel/KarzeHasana/KarzeHasanaIndex.cshtml";
+            }
+
         }
 
         public static class Membership

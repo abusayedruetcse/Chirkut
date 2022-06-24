@@ -13,6 +13,18 @@
       "Key": "Main",
       "Tables": [
         {
+          "Tablename": "dbo.BoniAdam",
+          "Identifier": "BoniAdam",
+          "Module": "AdminModule",
+          "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "dbo.KarzeHasana",
+          "Identifier": "KarzeHasana",
+          "Module": "Fuel",
+          "PermissionKey": "Administration:General"
+        },
+        {
           "Tablename": "dbo.Month",
           "Identifier": "Month",
           "Module": "AdminModule",

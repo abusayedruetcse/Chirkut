@@ -6,6 +6,65 @@
 /// <reference types="serenity.pro.ui" />
 /// <reference types="serenity.pro.extensions" />
 declare namespace Chirkut.AdminModule {
+    class BoniAdamColumns {
+        static columnsKey: string;
+    }
+}
+declare namespace Chirkut.AdminModule {
+    interface BoniAdamForm {
+        Name: Serenity.StringEditor;
+        MobileNo: Serenity.IntegerEditor;
+        Description: Serenity.TextAreaEditor;
+    }
+    class BoniAdamForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Chirkut.AdminModule {
+    interface BoniAdamRow {
+        BoniAdamId?: number;
+        Name?: string;
+        MobileNo?: number;
+        Description?: string;
+    }
+    namespace BoniAdamRow {
+        const idProperty = "BoniAdamId";
+        const nameProperty = "Name";
+        const localTextPrefix = "AdminModule.BoniAdam";
+        const lookupKey = "BoniAdamRow";
+        function getLookup(): Q.Lookup<BoniAdamRow>;
+        const deletePermission = "Administration:General";
+        const insertPermission = "Administration:General";
+        const readPermission = "Administration:General";
+        const updatePermission = "Administration:General";
+        const enum Fields {
+            BoniAdamId = "BoniAdamId",
+            Name = "Name",
+            MobileNo = "MobileNo",
+            Description = "Description"
+        }
+    }
+}
+declare namespace Chirkut.AdminModule {
+    namespace BoniAdamService {
+        const baseUrl = "AdminModule/BoniAdam";
+        function Create(request: Serenity.SaveRequest<BoniAdamRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<BoniAdamRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<BoniAdamRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<BoniAdamRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "AdminModule/BoniAdam/Create",
+            Update = "AdminModule/BoniAdam/Update",
+            Delete = "AdminModule/BoniAdam/Delete",
+            Retrieve = "AdminModule/BoniAdam/Retrieve",
+            List = "AdminModule/BoniAdam/List"
+        }
+    }
+}
+declare namespace Chirkut.AdminModule {
     class MonthColumns {
         static columnsKey: string;
     }
@@ -456,6 +515,71 @@ declare namespace Chirkut.Administration {
         }
     }
 }
+declare namespace Chirkut.Fuel {
+    class KarzeHasanaColumns {
+        static columnsKey: string;
+    }
+}
+declare namespace Chirkut.Fuel {
+    interface KarzeHasanaForm {
+        BoniAdamId: Serenity.LookupEditor;
+        InitiateDate: Serenity.DateEditor;
+        ReturnDate: Serenity.DateEditor;
+        Amount: Serenity.DecimalEditor;
+        Description: Serenity.TextAreaEditor;
+    }
+    class KarzeHasanaForm extends Serenity.PrefixedContext {
+        static formKey: string;
+        private static init;
+        constructor(prefix: string);
+    }
+}
+declare namespace Chirkut.Fuel {
+    interface KarzeHasanaRow {
+        KarzeHasanaId?: number;
+        BoniAdamId?: number;
+        Amount?: number;
+        InitiateDate?: string;
+        ReturnDate?: string;
+        Description?: string;
+        ReceiverName?: string;
+    }
+    namespace KarzeHasanaRow {
+        const idProperty = "KarzeHasanaId";
+        const nameProperty = "Description";
+        const localTextPrefix = "Fuel.KarzeHasana";
+        const deletePermission = "Administration:General";
+        const insertPermission = "Administration:General";
+        const readPermission = "Administration:General";
+        const updatePermission = "Administration:General";
+        const enum Fields {
+            KarzeHasanaId = "KarzeHasanaId",
+            BoniAdamId = "BoniAdamId",
+            Amount = "Amount",
+            InitiateDate = "InitiateDate",
+            ReturnDate = "ReturnDate",
+            Description = "Description",
+            ReceiverName = "ReceiverName"
+        }
+    }
+}
+declare namespace Chirkut.Fuel {
+    namespace KarzeHasanaService {
+        const baseUrl = "Fuel/KarzeHasana";
+        function Create(request: Serenity.SaveRequest<KarzeHasanaRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<KarzeHasanaRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<KarzeHasanaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<KarzeHasanaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        const enum Methods {
+            Create = "Fuel/KarzeHasana/Create",
+            Update = "Fuel/KarzeHasana/Update",
+            Delete = "Fuel/KarzeHasana/Delete",
+            Retrieve = "Fuel/KarzeHasana/Retrieve",
+            List = "Fuel/KarzeHasana/List"
+        }
+    }
+}
 declare namespace Chirkut.Membership {
     interface ChangePasswordForm {
         OldPassword: Serenity.PasswordEditor;
@@ -625,6 +749,30 @@ declare namespace Chirkut {
     }
 }
 declare namespace Chirkut.Texts {
+}
+declare namespace Chirkut.AdminModule {
+    class BoniAdamDialog extends Serenity.EntityDialog<BoniAdamRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected getDeletePermission(): string;
+        protected getInsertPermission(): string;
+        protected getUpdatePermission(): string;
+        protected form: BoniAdamForm;
+    }
+}
+declare namespace Chirkut.AdminModule {
+    class BoniAdamGrid extends Serenity.EntityGrid<BoniAdamRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof BoniAdamDialog;
+        protected getIdProperty(): string;
+        protected getInsertPermission(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
 }
 declare namespace Chirkut.AdminModule {
     class MonthDialog extends Serenity.EntityDialog<MonthRow, any> {
@@ -853,6 +1001,30 @@ declare namespace Chirkut.Common {
     class ThemeSelection extends Serenity.Widget<any> {
         constructor(select: JQuery);
         protected getCurrentTheme(): string;
+    }
+}
+declare namespace Chirkut.Fuel {
+    class KarzeHasanaDialog extends Serenity.EntityDialog<KarzeHasanaRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected getDeletePermission(): string;
+        protected getInsertPermission(): string;
+        protected getUpdatePermission(): string;
+        protected form: KarzeHasanaForm;
+    }
+}
+declare namespace Chirkut.Fuel {
+    class KarzeHasanaGrid extends Serenity.EntityGrid<KarzeHasanaRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof KarzeHasanaDialog;
+        protected getIdProperty(): string;
+        protected getInsertPermission(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
     }
 }
 declare namespace Chirkut.Membership {
